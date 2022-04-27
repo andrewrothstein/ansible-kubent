@@ -1,0 +1,56 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+- name: check for install in {{ kubent_install_dir }}
+  become: true
+  stat:
+    path: '{{ kubent_install_dir }}'
+  changed_when: false
+  register: kubent_binary
+- when: not kubent_binary.stat.exists
+  block:
+    - name: downloading {{ kubent_url }} to {{ kubent_tmp_archive }}
+      become: true
+      become_user: root
+      get_url:
+        url: '{{ kubent_url }}'
+        dest: '{{ kubent_tmp_archive }}'
+        checksum: '{{ kubent_checksum }}'
+        mode: 0644
+    - name: mkdir {{ kubent_install_dir }}
+      become: true
+      become_user: root
+      file:
+        path: '{{ kubent_install_dir }}'
+        state: directory
+        mode: 0755
+    - name: unarchiving {{ kubent_tmp_archive }} to {{ kubent_install_dir }}
+      become: true
+      become_user: root
+      unarchive:
+        remote_src: true
+        src: '{{ kubent_tmp_archive }}'
+        dest: '{{ kubent_install_dir }}'
+        creates: '{{ kubent_install_exe }}'
+  always:
+    - name: rm {{ kubent_tmp_archive }}
+      become: true
+      become_user: root
+      file:
+        path: '{{ kubent_tmp_archive }}'
+        state: absent
+- name: linking {{ kubent_install_link }} to {{ kubent_install_exe }}
+  become: true
+  become_user: root
+  file:
+    src: '{{ kubent_install_exe }}'
+    dest: '{{ kubent_install_link }}'
+    state: link

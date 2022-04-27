@@ -1,0 +1,11 @@
+---
+# vars file for kubent
+kubent_platform: '{{ kubent_os }}-{{ kubent_arch }}'
+kubent_name: kubent-{{ kubent_ver }}-{{ kubent_platform }}
+kubent_archive: '{{ kubent_name }}.{{ kubent_archive_type | default("tar.gz") }}'
+kubent_tmp_archive: /tmp/{{ kubent_archive }}
+kubent_url: '{{ kubent_mirror }}/{{ kubent_ver }}/{{ kubent_archive }}'
+kubent_checksum: '{{ kubent_checksums[kubent_ver][kubent_platform] }}'
+kubent_install_dir: '{{ kubent_parent_install_dir }}/{{ kubent_name }}'
+kubent_install_exe: '{{ kubent_install_dir }}/kubent'
+kubent_install_link: '{{ kubent_parent_install_dir }}/bin/kubent'
