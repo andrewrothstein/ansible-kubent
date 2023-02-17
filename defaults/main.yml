@@ -1,9 +1,11 @@
 ---
 # defaults file for kubent
-kubent_ver: 0.5.1
+kubent_ver: 0.7.0
 kubent_mirror: https://github.com/doitintl/kube-no-trouble/releases/download
-kubent_os: linux
-kubent_arch: amd64
+kubent_arch_map:
+  aarch64: arm64
+  arm64: arm64
+  x86_64: amd64
 kubent_parent_install_dir: /usr/local
 kubent_checksums:
   '0.5.1':
@@ -17,3 +19,14 @@ kubent_checksums:
     darwin-amd64: sha256:451ebcaa3993091629892f9f6a3d67f94d84d3eade4ae5c888735d1a66b918b1
     # https://github.com/doitintl/kube-no-trouble/releases/download/0.5.1/kubent-0.5.1-windows-amd64.tar.gz
     windows-amd64: sha256:a43fcce84ff1eb201cf92982887f1f6794d12654decd3cd5fd43582d481ed4bf
+  '0.7.0':
+    # https://github.com/doitintl/kube-no-trouble/releases/download/0.7.0/kubent-0.7.0-linux-arm64.tar.gz
+    linux-arm64: sha256:64c3d63752dcb1cc9664bf7500bbfc4619d62ba84771bad1da1c943cb1889f1a
+    # https://github.com/doitintl/kube-no-trouble/releases/download/0.7.0/kubent-0.7.0-linux-amd64.tar.gz
+    linux-amd64: sha256:01c01835184553cf554e254b5ccfa082a096bf68453bb06201d4abbf335c72f4
+    # https://github.com/doitintl/kube-no-trouble/releases/download/0.7.0/kubent-0.7.0-darwin-arm64.tar.gz
+    darwin-arm64: sha256:d9e3d7a35ab6ffe45f5d12c4b13d5d52381ef886cc8feeaef49e1d152c2d0f8b
+    # https://github.com/doitintl/kube-no-trouble/releases/download/0.7.0/kubent-0.7.0-darwin-amd64.tar.gz
+    darwin-amd64: sha256:37c4051299c8059ce708d399bfe05859475a36bbee47a16e8b5a5cdb00d8ae1c
+    # https://github.com/doitintl/kube-no-trouble/releases/download/0.7.0/kubent-0.7.0-windows-amd64.tar.gz
+    windows-amd64: sha256:3bb09f040917cdffedceb6a27bad902365c25645ca44a2c41dd1a4709f56ef38

@@ -1,5 +1,7 @@
 ---
 # vars file for kubent
+kubent_os: '{{ ansible_system | lower }}'
+kubent_arch: '{{ kubent_arch_map[ansible_architecture] }}'
 kubent_platform: '{{ kubent_os }}-{{ kubent_arch }}'
 kubent_name: kubent-{{ kubent_ver }}-{{ kubent_platform }}
 kubent_archive: '{{ kubent_name }}.{{ kubent_archive_type | default("tar.gz") }}'
